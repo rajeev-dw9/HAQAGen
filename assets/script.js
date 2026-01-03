@@ -57,36 +57,54 @@
     t.addEventListener("click", () => setTab(t.dataset.tab));
   });
 
-  // Lightbox
+  // Lightbox (robust)
   const lb = document.getElementById("lightbox");
   const lbImg = document.getElementById("lightboxImg");
   const lbCap = document.getElementById("lightboxCap");
   const lbClose = document.getElementById("lightboxClose");
 
-  function openLightbox(imgEl) {
-    lbImg.src = imgEl.getAttribute("src");
-    lbImg.alt = imgEl.getAttribute("alt") || "Figure";
-    const cap = imgEl.closest("figure")?.querySelector("figcaption")?.textContent || "";
-    lbCap.textContent = cap.trim();
-    lb.removeAttribute("hidden");
-    document.body.style.overflow = "hidden";
-  }
   function closeLightbox() {
-    lb.setAttribute("hidden", "");
-    lbImg.src = "";
+    if (!lb) return;
+    lb.hidden = true;
+    if (lbImg) lbImg.src = "";
     document.body.style.overflow = "";
   }
 
+  function openLightbox(imgEl) {
+    if (!lb || !lbImg) return;
+    lbImg.src = imgEl.getAttribute("src") || "";
+    lbImg.alt = imgEl.getAttribute("alt") || "Figure";
+    const cap = imgEl.closest("figure")?.querySelector("figcaption")?.textContent || "";
+    if (lbCap) lbCap.textContent = cap.trim();
+    lb.hidden = false;
+    document.body.style.overflow = "hidden";
+  }
+
   document.querySelectorAll(".js-lightbox").forEach(img => {
-    img.addEventListener("click", () => openLightbox(img));
+    img.addEventListener("click", (e) => {
+      e.preventDefault();
+      openLightbox(img);
+    });
   });
 
-  lbClose?.addEventListener("click", closeLightbox);
+  // Close button
+  lbClose?.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    closeLightbox();
+  });
+
+  // Click outside image closes
   lb?.addEventListener("click", (e) => {
     if (e.target === lb) closeLightbox();
   });
+
+  // Prevent clicks on the image from bubbling
+  lbImg?.addEventListener("click", (e) => e.stopPropagation());
+
+  // ESC closes
   window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !lb.hasAttribute("hidden")) closeLightbox();
+    if (e.key === "Escape" && lb && !lb.hidden) closeLightbox();
   });
 
   // Copy BibTeX

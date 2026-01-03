@@ -415,14 +415,19 @@ html[data-theme="light"] .math{background: rgba(11,16,32,.04);}
 }
 .lightbox__close{
   position: fixed;
-  top: 16px; right: 16px;
-  width: 44px; height: 44px;
+  top: 16px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
   border-radius: 14px;
   border: 1px solid rgba(255,255,255,.18);
   background: rgba(255,255,255,.06);
   color: white;
   font-size: 26px;
-  cursor:pointer;
+  cursor: pointer;
+
+  z-index: 9999;
+  pointer-events: auto;
 }
 
 @media (max-width: 980px){
@@ -444,3 +449,5 @@ html[data-theme="light"] .math{background: rgba(11,16,32,.04);}
   .btn{transition:none;}
   .btn:hover{transform:none;}
 }
+/* Make the HTML `hidden` attribute actually hide elements (overrides author styles) */
+[hidden] { display: none !important; }
