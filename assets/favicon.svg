@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <radialGradient id="g" cx="35%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#7dd3fc"/>
+      <stop offset="55%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#0b1020"/>
+    </radialGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="url(#g)"/>
+  <path d="M52 160c30-54 68-82 114-84 21-1 41 4 60 14" fill="none" stroke="#e2e8f0" stroke-width="16" stroke-linecap="round"/>
+  <circle cx="78" cy="156" r="14" fill="#e2e8f0"/>
+  <circle cx="128" cy="104" r="14" fill="#e2e8f0"/>
+  <circle cx="176" cy="96" r="14" fill="#e2e8f0"/>
+  <text x="50%" y="214" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="44" fill="#e2e8f0" font-weight="700">NIR</text>
+</svg>
